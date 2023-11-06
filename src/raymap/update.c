@@ -139,10 +139,10 @@ void UpdateMap(RMap2D *map) {
 
             if ((map->logic._internal[1].x == 0.f) && (map->logic._internal[1].y == 0.f)) map->logic._internal[2].x = 0.f; // stop moving
 
-            printf("vx %f vy %f time %f i %f | vx_neg %d vy_neg %d\n", 
-                map->logic._internal[1].x, map->logic._internal[1].y, map->logic._internal[2].x, interpolation,
-                (int)map->logic._internal[3].x, (int)map->logic._internal[3].y
-            );
+            // printf("vx %f vy %f time %f i %f | vx_neg %d vy_neg %d\n", 
+            //     map->logic._internal[1].x, map->logic._internal[1].y, map->logic._internal[2].x, interpolation,
+            //     (int)map->logic._internal[3].x, (int)map->logic._internal[3].y
+            // );
 
             if (map->logic._internal[2].x <= 0.f) map->logic._internal[2].y = 0.f;
         } else {
