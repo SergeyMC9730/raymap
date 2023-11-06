@@ -54,3 +54,5 @@ void UpdateMap(RMap2D *map);
 void DrawMap(RMap2D *map, float x, float y);
 void DrawMapV(RMap2D *map, Vector2 position);
 void DrawMapEx(RMap2D *map, Vector2 position, float rotation, float scale);
+
+Vector2 GetMousePositionInMapSpace(RMap2D *map);

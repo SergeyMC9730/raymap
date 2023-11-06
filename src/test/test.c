@@ -19,11 +19,28 @@
 #include <raymap.h>
 
 int main() {
-    InitWindow(1280, 720, "raylib [core] example - basic window");
+    InitWindow(640, 480, "raylib [core] example - basic window");
 
     SetTargetFPS(144);
 
-    RMap2D *map = LoadMap(LoadTexture("examplemap.png"));
+    int szx = 1000;
+    int szy = 1000;
+
+    RenderTexture2D txt2 = LoadRenderTexture(szx, szy);
+
+    BeginTextureMode(txt2);
+
+    ClearBackground(WHITE);
+    for (int i = 0; i < szx; i += 50) {
+        DrawLine(i, 0, i, szy, GRAY);
+        for (int j = 0; j < szy; j += 50) {
+            DrawLine(0, j, szx, j, GRAY); 
+        }
+    }
+
+    EndTextureMode();
+
+    RMap2D *map = LoadMap(txt2.texture);
 
     while (!WindowShouldClose()) {
         UpdateMap(map);
@@ -37,7 +54,9 @@ int main() {
         EndDrawing();
     }
 
-    UnloadMap(map, true);
+    UnloadMap(map, false);
+
+    UnloadRenderTexture(txt2);
 
     CloseWindow();
 
