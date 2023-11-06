@@ -33,7 +33,17 @@ void DrawMapEx(RMap2D *map, Vector2 position, float rotation, float scale) {
     final_position.x += position.x;
     final_position.y += position.y;
 
-    DrawTextureEx(map->renderer.texture, final_position, rotation, scale, WHITE);
+    Rectangle rect = {};
+    rect.width = map->renderer.texture.width;
+    rect.height = -map->renderer.texture.height;
+
+    Rectangle rect_dest;
+    rect_dest.x = final_position.x;
+    rect_dest.y = final_position.y;
+    rect_dest.width = map->renderer.texture.width * scale;
+    rect_dest.height = map->renderer.texture.height * scale;
+
+    DrawTexturePro(map->renderer.texture, rect, rect_dest, (Vector2){0,0}, rotation, WHITE);
 
     return;
 }

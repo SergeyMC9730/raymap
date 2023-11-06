@@ -28,27 +28,43 @@ int main() {
 
     RenderTexture2D txt2 = LoadRenderTexture(szx, szy);
 
-    BeginTextureMode(txt2);
-
-    ClearBackground(WHITE);
-    for (int i = 0; i < szx; i += 50) {
-        DrawLine(i, 0, i, szy, GRAY);
-        for (int j = 0; j < szy; j += 50) {
-            DrawLine(0, j, szx, j, GRAY); 
-        }
-    }
-
-    EndTextureMode();
-
     RMap2D *map = LoadMap(txt2.texture);
 
     while (!WindowShouldClose()) {
         UpdateMap(map);
 
         BeginDrawing();
+            BeginTextureMode(txt2);
+
+            ClearBackground(WHITE);
+            for (int i = 0; i < szx; i += 50) {
+                DrawLine(i, 0, i, szy, GRAY);
+                for (int j = 0; j < szy; j += 50) {
+                    DrawLine(0, j, szx, j, GRAY); 
+                }
+            }
+            
+            Vector2 pos = GetMousePositionInMapSpace(map);
+
+            DrawRectangleV(pos, (Vector2){50, 50}, RED);
+
+            EndTextureMode();
+
             ClearBackground(RAYWHITE);
 
             DrawMap(map, 0, 0);
+
+            Rectangle rect = {};
+            rect.width = map->renderer.texture.width;
+            rect.height = -map->renderer.texture.height;
+
+            Rectangle rect_dest;
+            rect_dest.x = 200;
+            rect_dest.y = 0;
+            rect_dest.width = map->renderer.texture.width * 0.3f;
+            rect_dest.height = map->renderer.texture.height * 0.3f;
+
+            DrawTexturePro(map->renderer.texture, rect, rect_dest, (Vector2){0,0}, 0.f, WHITE);
 
             DrawFPS(5, 5);
         EndDrawing();
